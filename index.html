@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#061923">
+<title>BLUE AQUA | Online Aquarium Store</title>
+<style>
+:root{--bg:#061923;--panel:#102b36;--teal:#14a6a0;--text:#f3ffff;--muted:#b4d3d6}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+.wrap{max-width:1050px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0 18px}.brand{font-size:25px;font-weight:900;letter-spacing:4px}.sub{font-size:11px;letter-spacing:2px;color:var(--muted);margin-top:4px}
+a{color:inherit;text-decoration:none}.btn{display:inline-block;background:var(--teal);color:#031c22;padding:11px 16px;border-radius:9px;font-weight:700;font-size:14px}
+.hero{background:linear-gradient(135deg,#073b49,#087e83);padding:34px 24px;border-radius:18px}.eyebrow{font-size:12px;letter-spacing:2px}.hero h1{font-size:clamp(30px,7vw,52px);line-height:1.05;margin:12px 0}.muted{color:var(--muted);line-height:1.6}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.stat,.panel,.card{background:var(--panel);border:1px solid #1c4852;border-radius:14px}.stat{text-align:center;padding:16px 8px}.stat b{display:block;margin-top:5px}
+section{margin:28px 0}h2{font-size:25px;margin:0 0 8px}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.filter{border:1px solid #28717a;background:transparent;color:var(--text);border-radius:30px;padding:9px 14px;cursor:pointer}.filter.active{background:#0e7779;border-color:#0e7779}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px}.card{padding:16px;display:flex;flex-direction:column;min-height:180px}.emoji{font-size:34px;margin-bottom:12px}.card h3{font-size:16px;margin:0 0 7px}.card p{font-size:12px;color:var(--muted);margin:0 0 14px;flex:1}.card .btn{text-align:center;font-size:12px;padding:10px}
+.panel{padding:20px}.steps{padding-left:20px;color:var(--muted);line-height:1.9}footer{text-align:center;color:var(--muted);font-size:12px;padding:22px 0}
+@media(min-width:700px){.hero{padding:48px}.grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div><div class="brand">BLUE AQUA</div><div class="sub">ONLINE AQUARIUM STORE</div></div><a class="btn" href="https://wa.me/917827994477?text=Hello%20BLUE%20AQUA%2C%20I%20want%20to%20enquire." target="_blank" rel="noopener">WhatsApp us</a></header>
+<main>
+<div class="hero"><div class="eyebrow">EXPLORE • CREATE • ENJOY</div><h1>Bring your aquarium to life.</h1><p class="muted">Discover colourful fish, beautiful shrimp, snails and aquatic plants.</p><a class="btn" href="#catalogue">Explore products ↓</a></div>
+<div class="stats"><div class="stat">🐠<b>Fish</b></div><div class="stat">🦐<b>Shrimp</b></div><div class="stat">🌿<b>Plants</b></div></div>
+<section id="catalogue"><h2>Our catalogue</h2><p class="muted">Ask us about current stock and prices. Availability is confirmed before ordering.</p><div class="filters" id="filters"></div><div class="grid" id="products"></div></section>
+<section class="panel"><h2>🚚 Delivery</h2><p class="muted">Home-based online store serving Delhi NCR. Delivery availability, charges and timings are confirmed before an order is accepted.</p></section>
+<section class="panel"><h2>How to order</h2><ol class="steps"><li>Choose a product and tap its WhatsApp enquiry button.</li><li>Confirm availability, price and delivery details.</li><li>UPI payment details are shared after order confirmation.</li></ol></section>
+<section class="panel"><h2>About BLUE AQUA</h2><p class="muted">Your online destination for aquarium fish, shrimp, snails and aquatic plants. We aim to make aquarium keeping enjoyable and responsible.</p></section>
+</main>
+<footer>BLUE AQUA · DELHI NCR<br>Stock and delivery must be confirmed before ordering.</footer>
+</div>
+<script>
+const products=[
+['Goldfish','Fish','🐠'],['Tiger Barbs','Fish','🐟'],['Albino Rainbow Shark','Fish','🦈'],['Polar Parrot','Fish','🐠'],['Neon Tetra','Fish','🐟'],['Guppies','Fish','🐟'],
+['Fire Red Neocaridina','Shrimp','🦐'],['Blue Dream Neocaridina','Shrimp','🦐'],['Bloody Mary Neocaridina','Shrimp','🦐'],['Orange Sakura Neocaridina','Shrimp','🦐'],['Red Cherry Neocaridina','Shrimp','🦐'],
+['Apple Snails','Snails','🐌'],['Ramshorn Snails','Snails','🐌'],['Bladder Snails','Snails','🐌'],
+['Java Moss','Plants','🌿'],['Anubias Nana','Plants','🌱'],['Monte Carlo','Plants','🌱'],['Amazon Frogbit','Plants','🍃'],['Salvinia Natans','Plants','🍃'],['Cabomba','Plants','🌿'],['Bacopa Caroliniana','Plants','🌿'],['Vallisneria Nana','Plants','🌱'],['Water Wisteria','Plants','🌿'],['Amazon Sword','Plants','🌱'],['Duckweed','Plants','🍃']
+];
+const categories=['All','Fish','Shrimp','Snails','Plants'];let selected='All';
+const filters=document.getElementById('filters'),grid=document.getElementById('products');
+function render(){filters.innerHTML='';categories.forEach(cat=>{const b=document.createElement('button');b.className='filter'+(cat===selected?' active':'');b.textContent=cat;b.onclick=()=>{selected=cat;render()};filters.appendChild(b)});
+grid.innerHTML='';products.filter(p=>selected==='All'||p[1]===selected).forEach(p=>{const card=document.createElement('article');card.className='card';const emoji=document.createElement('div');emoji.className='emoji';emoji.textContent=p[2];const h=document.createElement('h3');h.textContent=p[0];const note=document.createElement('p');note.textContent=p[1]+' · Enquire for availability';const a=document.createElement('a');a.className='btn';a.textContent='Enquire on WhatsApp';a.target='_blank';a.rel='noopener';a.href='https://wa.me/917827994477?text='+encodeURIComponent('Hello BLUE AQUA, I would like to enquire about '+p[0]+'. Is it available?');card.append(emoji,h,note,a);grid.appendChild(card)})}
+render();
+</script>
+</body>
+</html>
